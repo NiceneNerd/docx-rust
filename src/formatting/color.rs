@@ -20,13 +20,13 @@ use crate::{__string_enum, __xml_test_suites};
 #[xml(tag = "w:color")]
 pub struct Color<'a> {
     #[xml(attr = "w:val")]
-    pub value: Cow<'a, str>,
+    pub value: Option<Cow<'a, str>>,
 }
 
 impl<'a> From<&'a str> for Color<'a> {
     fn from(val: &'a str) -> Self {
         Color {
-            value: Cow::Borrowed(val),
+            value: Some(Cow::Borrowed(val)),
         }
     }
 }
@@ -34,7 +34,7 @@ impl<'a> From<&'a str> for Color<'a> {
 impl From<String> for Color<'_> {
     fn from(val: String) -> Self {
         Color {
-            value: Cow::Owned(val),
+            value: Some(Cow::Owned(val)),
         }
     }
 }
@@ -42,7 +42,7 @@ impl From<String> for Color<'_> {
 impl From<u32> for Color<'_> {
     fn from(val: u32) -> Self {
         Color {
-            value: Cow::Owned(format!("{:06x}", val)),
+            value: Some(Cow::Owned(format!("{:06x}", val))),
         }
     }
 }
@@ -50,7 +50,7 @@ impl From<u32> for Color<'_> {
 impl From<(u8, u8, u8)> for Color<'_> {
     fn from(val: (u8, u8, u8)) -> Self {
         Color {
-            value: Cow::Owned(format!("{:02x}{:02x}{:02x}", val.0, val.1, val.2)),
+            value: Some(Cow::Owned(format!("{:02x}{:02x}{:02x}", val.0, val.1, val.2))),
         }
     }
 }
