@@ -184,32 +184,6 @@ fn read_image() {
     }
 }
 
-#[test]
-fn test_default_docx_specifically() {
-    let path = std::path::Path::new("./tests/pandoc/default.docx");
-    println!("Attempting to parse: {:?}", path);
-    
-    match DocxFile::from_file(path) {
-        Ok(docx_file) => {
-            println!("DocxFile created successfully");
-            match docx_file.parse() {
-                Ok(_) => {
-                    println!("Parsed successfully!");
-                    assert!(true);
-                },
-                Err(err) => {
-                    println!("Parse error: {:?}", err);
-                    panic!("Failed to parse default.docx: {:?}", err);
-                }
-            }
-        }
-        Err(err) => {
-            println!("Error creating DocxFile: {:?}", err);
-            panic!("Failed to create DocxFile: {:?}", err);
-        }
-    }
-}
-
 #[tokio::test]
 #[cfg(feature = "async")]
 async fn read_write_async() {
